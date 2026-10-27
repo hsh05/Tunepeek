@@ -2,7 +2,8 @@
 
 A tiny always-on-top **now-playing flyout** for Windows. Press a hotkey and a small blurred card appears with the current song, artist, album art, a seekable progress bar, previous / play-pause / next, a volume slider, and (optionally) synced lyrics. It never takes keyboard focus, so it won't interrupt what you're typing.
 
-Works with anything that shows up in the Windows media overlay: **Spotify desktop** (free or Premium, with or without Spicetify) and **YouTube Music in a browser** (tested design target: Brave).
+Works with anything that shows up in the Windows media overlay.
+Tested for**Spotify desktop**
 
 ## Features
 
@@ -57,8 +58,8 @@ To use your own icon: `cargo tauri icon path\to\icon.png`.
 
 ## Known limitations
 
-- **Volume is per app, not per tab.** Browsers expose one audio session per browser process, so the slider changes Brave's volume as a whole.
-- **Source filter.** By default only players whose name contains `spotify` or `brave` are shown. If a YouTube *video* is playing in Brave it appears too; add/remove names in Settings.
+- **Volume is per app, not per tab.** Browsers expose one audio session per browser process, so the slider changes the browser's volume as a whole.
+- **Source filter.** By default only players whose name contains `spotify` are shown. If a YouTube *video* is playing in a browser it appears too; add/remove names in Settings.
 - **Esc** works as a global hotkey only while the flyout is open (the flyout has no keyboard focus).
 - **Exclusive-fullscreen games** can't be drawn over by any normal window. Borderless/windowed fullscreen is fine.
 - Lyrics depend on LRCLIB having the track; if not, the line stays empty.
@@ -66,4 +67,4 @@ To use your own icon: `cargo tauri icon path\to\icon.png`.
 
 ## License
 
-MIT. Tunepeek is not affiliated with Spotify, Google, or Brave.
+MIT. Tunepeek is not affiliated with any companies.
