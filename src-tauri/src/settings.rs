@@ -31,7 +31,7 @@ impl Default for Settings {
             autostart: false,
             lyrics: true,
             accent: true,
-            sources: "spotify, brave".into(),
+            sources: "spotify".into(),
         }
     }
 }
