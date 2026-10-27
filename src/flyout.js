@@ -76,26 +76,44 @@ function parseLrc(text) {
   }
   return out.sort((a, b) => a.t - b.t);
 }
-async function loadLyrics(s) {
+const lyricCache = new Map(); // "artist|title" -> raw LRC text ("" = none found)
+let lyricFetchTimer = null;
+
+function applyLyrics(raw, key) {
+  lyrics = raw ? parseLrc(raw) : null;
+  lyricNote = lyrics && lyrics.length ? "" : "No synced lyrics found";
+  if (lyricNote) setTimeout(() => { if (lastKey === key) lyricNote = ""; }, 4000);
+}
+// Called on every track change. Waits briefly so players that update their
+// metadata a few times in a row don't trigger a search for each change.
+function scheduleLyrics(s) {
+  clearTimeout(lyricFetchTimer);
   lyrics = null;
   lyricNote = "";
   setLyric("");
   if (!cfg.lyrics || !s.title) return;
-  const key = s.key;
   lyricNote = "Searching lyrics…";
+  lyricFetchTimer = setTimeout(() => loadLyrics(s), 400);
+}
+async function loadLyrics(s) {
+  const key = s.key;
+  const ck = `${s.artist}|${s.title}`.toLowerCase();
+  if (lyricCache.has(ck)) { applyLyrics(lyricCache.get(ck), key); return; }
   try {
-    const raw = await invoke("fetch_lyrics", {
-      artist: s.artist, title: s.title, album: s.album, durationS: Math.round(s.duration_ms / 1000),
-    });
+    // Hard client-side backstop so "Searching…" can never hang forever.
+    const raw = await Promise.race([
+      invoke("fetch_lyrics", { artist: s.artist, title: s.title, album: s.album, durationS: Math.round(s.duration_ms / 1000) }),
+      new Promise((_, rej) => setTimeout(() => rej(new Error("timeout")), 15000)),
+    ]);
     if (lastKey !== key) return;
-    lyrics = raw ? parseLrc(raw) : null;
-    lyricNote = lyrics && lyrics.length ? "" : "No synced lyrics found";
+    lyricCache.set(ck, raw || "");
+    applyLyrics(raw || "", key);
   } catch (e) {
     if (lastKey !== key) return;
     console.error("lyrics:", e);
     lyricNote = "Couldn't reach the lyrics service";
+    setTimeout(() => { if (lastKey === key) lyricNote = ""; }, 4000);
   }
-  if (lyricNote) setTimeout(() => { if (lastKey === key) lyricNote = ""; }, 4000);
 }
 function lyricLine(pos) {
   if (!lyrics || !lyrics.length) return "";
@@ -125,7 +143,7 @@ function onState(s) {
   if (changed) {
     lastKey = s.key; artLoaded = false;
     setArt(null);
-    loadLyrics(s);
+    scheduleLyrics(s);
   }
   if (s.has_art && !artLoaded) { artLoaded = true; invoke("get_art").then(setArt); }
 
