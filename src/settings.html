@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tunepeek settings</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="settings">
+  <h1>Tunepeek</h1>
+  <p class="sub">Now-playing flyout for Spotify and YouTube Music. Changes apply when you press Save.</p>
+
+  <div class="f">
+    <label for="hotkey">Hotkey</label>
+    <input type="text" id="hotkey" readonly>
+    <small>Click the box, then press a keyboard shortcut (needs Ctrl, Alt or Shift) or a mouse side button (Mouse4 = back, Mouse5 = forward; modifiers optional).</small>
+  </div>
+
+  <div class="two">
+    <div class="f"><label for="corner">Position</label>
+      <select id="corner">
+        <option value="top-left">Top left</option><option value="top-center">Top center</option><option value="top-right">Top right</option>
+        <option value="center">Center</option>
+        <option value="bottom-left">Bottom left</option><option value="bottom-center">Bottom center</option><option value="bottom-right">Bottom right</option>
+      </select></div>
+    <div class="f"><label for="monitor">Monitor</label>
+      <select id="monitor"><option value="cursor">Where the cursor is</option><option value="primary">Primary monitor</option></select></div>
+  </div>
+
+  <div class="two">
+    <div class="f"><label for="margin">Edge margin (px)</label><input type="number" id="margin" min="0" max="400"></div>
+    <div class="f"><label for="hide">Auto-hide after (seconds)</label><input type="number" id="hide" min="0" max="120"><small>0 = never</small></div>
+  </div>
+
+  <div class="f"><label for="sources">Players to listen to</label><input type="text" id="sources">
+    <small>Comma separated words matched against the app name, e.g. spotify, brave, chrome, msedge, firefox.</small></div>
+
+  <label class="chk"><input type="checkbox" id="lyrics"> Show synced lyrics (from LRCLIB)</label>
+  <label class="chk"><input type="checkbox" id="accent"> Tint the flyout with the album art colour</label>
+  <label class="chk"><input type="checkbox" id="autostart"> Start Tunepeek with Windows</label>
+
+  <div class="btns">
+    <button class="primary" id="save">Save</button>
+    <button id="preview">Preview flyout</button>
+    <span id="status"></span>
+  </div>
+<script src="settings.js"></script>
+</body>
+</html>
