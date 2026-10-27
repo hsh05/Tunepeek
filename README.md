@@ -12,7 +12,7 @@ Works with anything that shows up in the Windows media overlay: **Spotify deskto
 - Volume slider + mouse wheel anywhere on the card (controls the *app's* volume in the Windows mixer, no Premium or API keys)
 - Follows the most recently active player automatically
 - Acrylic blur, follows the system light/dark theme, accent colour from the album art, fade in/out
-- Synced lyrics via [LRCLIB](https://lrclib.net) (optional)
+- Synced lyrics via [LRCLIB](https://lrclib.net)
 - Position (any corner / edges / centre), margin, monitor (cursor or primary), auto-hide delay, start with Windows (off by default)
 - Closes with the hotkey, `Esc`, a click anywhere outside it, or after N seconds of inactivity (hovering keeps it open)
 - Lives in the system tray
@@ -28,7 +28,7 @@ Works with anything that shows up in the Windows media overlay: **Spotify deskto
 
 Because it reads SMTC, no Spotify API, login, or Premium is needed.
 
-## Install (so you can launch it from Windows search)
+## Install
 
 ```powershell
 .\build.cmd
