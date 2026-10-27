@@ -51,7 +51,7 @@
     ],
     "publisher": "Tunepeek",
     "category": "Music",
-    "shortDescription": "Now-playing flyout for Spotify and YouTube Music",
+    "shortDescription": "Now-playing flyout for media applications",
     "longDescription": "A tiny always-on-top flyout with song info, seeking, playback controls and per-app volume, opened with a hotkey.",
     "windows": {
       "webviewInstallMode": {

@@ -1,7 +1,7 @@
 [package]
 name = "tunepeek"
 version = "0.1.0"
-description = "A tiny always-on-top now-playing flyout for Spotify and YouTube Music on Windows"
+description = "A tiny always-on-top now-playing flyout for media applications on Windows"
 edition = "2021"
 license = "MIT"
 

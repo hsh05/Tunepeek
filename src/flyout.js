@@ -128,7 +128,7 @@ function lyricLine(pos) {
 // ---------- rendering ----------
 function idle() {
   $("title").textContent = "Nothing playing";
-  $("artist").textContent = "Start Spotify or YouTube Music";
+  $("artist").textContent = "Start your selected player(s)";
   setArt(null);
   for (const id of ["prev", "next", "pp", "seek", "vol"]) $(id).disabled = true;
   $("icPlay").classList.remove("hidden"); $("icPause").classList.add("hidden");
