@@ -222,6 +222,9 @@ async fn save_settings(app: AppHandle, state: State<'_, AppState>, s: Settings) 
         let _ = mouse::bind(&app, &old.hotkey);
         return Err(format!("Can't use that hotkey: {e}"));
     }
+    // Debug builds never touch the startup entry: it would point at the
+    // console-subsystem dev exe and open an empty cmd window at boot.
+    #[cfg(not(debug_assertions))]
     if s.autostart != old.autostart {
         let al = app.autolaunch();
         let r = if s.autostart { al.enable() } else { al.disable() };
@@ -265,11 +268,20 @@ fn main() {
                 let _ = settings::save(&handle, &s); // write defaults once
             }
             let hotkey = s.hotkey.clone();
+            let _want_autostart = s.autostart;
             app.manage(AppState {
                 settings: Mutex::new(s),
                 media: Mutex::new(Tracker::default()),
                 visible: AtomicBool::new(false),
             });
+
+            // Release builds: keep the startup entry pointing at this exe.
+            #[cfg(not(debug_assertions))]
+            {
+                if _want_autostart {
+                    let _ = app.autolaunch().enable();
+                }
+            }
 
             mouse::start(&handle);
             if let Err(e) = mouse::bind(&handle, &hotkey) {

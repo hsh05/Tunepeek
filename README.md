@@ -3,7 +3,7 @@
 A tiny always-on-top **now-playing flyout** for Windows. Press a hotkey and a small blurred card appears with the current song, artist, album art, a seekable progress bar, previous / play-pause / next, a volume slider, and (optionally) synced lyrics. It never takes keyboard focus, so it won't interrupt what you're typing.
 
 Works with anything that shows up in the Windows media overlay.
-Tested for**Spotify desktop**
+Tested for **Spotify desktop**
 
 ## Features
 
